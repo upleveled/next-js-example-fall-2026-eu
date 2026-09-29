@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import catWithGlasses from '../public/images/cat-with-glasses.jpeg';
+import ClientComponentBrowserApis from './ClientComponentBrowserApis';
 import GenerateButton from './GenerateButton';
 import styles from './page.module.scss';
 
@@ -14,6 +17,34 @@ export default function HomePage() {
       <div className={styles.dateString}>
         Current date ISO string: {new Date().toISOString()}
       </div>
+      <h2>Image using &lt;img&gt;</h2>
+      <div>
+        Best practice: hand-optimize the image first using something like
+        https://squoosh.app/
+      </div>
+      <img
+        src="/images/cat-with-glasses.jpeg"
+        alt="cat with glasses"
+        width={300}
+      />
+      <h2>Image using &lt;Image&gt; from next/image</h2>
+      <div>
+        Downside: This uses server capacity, which can cause slow page loads
+      </div>
+      <Image
+        src="/images/cat-with-glasses.jpeg"
+        alt="cat with glasses"
+        // Option 1: Find dimensions of image and put them here
+        width={300}
+        height={300}
+      />
+      <Image
+        // Option 2: Import the image and the size will be added by Next.js
+        src={catWithGlasses}
+        alt="cat with glasses"
+        width={300}
+      />
+      <ClientComponentBrowserApis />
     </div>
   );
 }

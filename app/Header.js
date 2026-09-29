@@ -10,6 +10,7 @@ export default function Header() {
         <nav className={styles.nav}>
           <Link href="/">Home</Link>
           <Link href="/about-us">About Us</Link>
+          <Link href="/animals">Animals</Link>
         </nav>
         {/* eslint-disable-next-line react-hooks/purity */}
         <div>{Math.floor(Math.random() * 100)}</div>
