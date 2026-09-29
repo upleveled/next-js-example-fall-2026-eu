@@ -20,16 +20,12 @@ export default function ClientComponentBrowserApis() {
       <div>
         <h2>document.title</h2>
         <div>{documentTitle}</div>
-        {/* <div>{
-        // Yields the error `document is not defined`
-        document.title}</div>*/}
       </div>
-      {/*
-      Also yields error `window is not defined`
-      <div>
-        <h2>window.location.href</h2>
-        <div>{window.location.href}</div>
-      </div> */}
+      {/* Using document.title shows error `document is not defined` */}
+      {/* {document.title} */}
+
+      {/* Using window.location.href shows error `window is not defined` */}
+      {/* {window.location.href} */}
     </div>
   );
 }

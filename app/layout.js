@@ -19,6 +19,7 @@ export const metadata = {
     default: 'Animals Anonymous',
     template: '%s | Animals Anonymous',
   },
+  description: 'Animals for everyone, everywhere, for every occasion',
 };
 
 export default function RootLayout(props) {
