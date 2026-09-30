@@ -12,10 +12,6 @@ const fruits = [
   { id: 8, name: 'Kiwi', emoji: '🥝' },
 ];
 
-// const fruitComments = [
-//   { fruitId: 1, comment: 'tasty' }
-// ]
-
 export function getFruits() {
   return fruits;
 }

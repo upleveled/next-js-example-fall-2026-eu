@@ -17,11 +17,6 @@ export default function FeatureBanner() {
     () => true,
   );
 
-  // // If your state variable has 2 possible types,
-  // // you can pass in the possible types in angle
-  // // brackets
-  // const [isHidden, setIsHidden] = useState<boolean | undefined>();
-
   const [isHidden, setIsHidden] = useState(false);
 
   return (
