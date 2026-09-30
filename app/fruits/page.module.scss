@@ -1,0 +1,14 @@
+.fruitsList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
+  li {
+    max-width: 400px;
+
+    img {
+      width: 100%;
+      border-radius: 4px;
+    }
+  }
+}

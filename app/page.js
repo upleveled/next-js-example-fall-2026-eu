@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import catWithGlasses from '../public/images/cat-with-glasses.jpeg';
+import AntipatternDocumentCookie from './AntipatternDocumentCookie';
 import ClientComponentBrowserApis from './ClientComponentBrowserApis';
 import GenerateButton from './GenerateButton';
 import styles from './page.module.scss';
@@ -45,6 +47,36 @@ export default function HomePage() {
         width={300}
       />
       <ClientComponentBrowserApis />
+      <h2>Antipattern: Using document.cookie in a client component</h2>
+      <AntipatternDocumentCookie />
+      <h2>
+        <Link href="/cookies-lang-switcher">Cookies Lang Switcher</Link>
+      </h2>
+      A better version of cookies
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

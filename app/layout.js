@@ -1,5 +1,6 @@
 import './globals.scss';
 import { Geist, Geist_Mono } from 'next/font/google';
+import FeatureBanner from './FeatureBanner';
 import Header from './Header';
 
 const geistSans = Geist({
@@ -27,6 +28,7 @@ export default function RootLayout(props) {
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <Header />
+        <FeatureBanner />
         <main>{props.children}</main>
       </body>
     </html>
