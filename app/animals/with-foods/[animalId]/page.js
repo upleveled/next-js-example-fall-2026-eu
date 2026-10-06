@@ -5,7 +5,7 @@ import { getAnimalWithFoodsInsecure } from '../../../../database/animals';
 export async function generateMetadata(props) {
   const params = await props.params;
 
-  const animal = await getAnimalWithFoodsInsecure(Number(params.animalId));
+  const [animal] = await getAnimalWithFoodsInsecure(Number(params.animalId));
 
   return {
     title: animal.firstName,
@@ -13,7 +13,7 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function AnimalPage(props) {
+export default async function AnimalWithFoodsPage(props) {
   const params = await props.params;
 
   const animalWithFoods = await getAnimalWithFoodsInsecure(
@@ -25,7 +25,6 @@ export default async function AnimalPage(props) {
   const animal = animalWithFoods[0];
 
   if (animalWithFoods.length < 1 || !animal) {
-    // Throws an error
     notFound();
   }
 

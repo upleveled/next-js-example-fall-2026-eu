@@ -1,18 +1,18 @@
 import Link from 'next/link';
-import { getAnimalsWithFoodsJsonAggInsecure } from '../../../database/animals';
+import { getAnimalsWithFoodsJsonbAggInsecure } from '../../../database/animals';
 import styles from './page.module.scss';
 
 export const metadata = {
-  title: 'Animals',
+  title: 'Animals with Foods (jsonb_agg)',
   description: 'A list of animals for every occasion',
 };
 
-export default async function AnimalsWithFoodsPage() {
-  const animals = await getAnimalsWithFoodsJsonAggInsecure();
+export default async function AnimalsWithFoodsJsonbAggPage() {
+  const animals = await getAnimalsWithFoodsJsonbAggInsecure();
 
   return (
     <div>
-      <h1>Animals with Foods</h1>
+      <h1>Animals with Foods (jsonb_agg)</h1>
       <ul className={styles.animalsList}>
         {animals.map((animal) => {
           return (

@@ -1,57 +1,27 @@
-// Simulate a real database, which cannot be imported from Client Components
+// Simulate a real database, which cannot be imported from Client
+// Components
 import 'server-only';
 import { cache } from 'react';
 import type { Animal } from '../migrations/00000-createTableAnimals';
 import { sql } from './connect';
 
-// const animals = [
-//   {
-//     id: 1,
-//     firstName: 'Mochi',
-//     type: 'red panda',
-//     accessory: 'tiny yellow raincoat',
-//     birthDate: new Date('2021-04-17'),
-//   },
-//   {
-//     id: 2,
-//     firstName: 'Biscuit',
-//     type: 'capybara',
-//     accessory: 'striped bow tie',
-//     birthDate: new Date('2020-11-03'),
-//   },
-//   {
-//     id: 3,
-//     firstName: 'Pickle',
-//     type: 'otter',
-//     accessory: 'round sunglasses',
-//     birthDate: new Date('2022-07-28'),
-//   },
-//   {
-//     id: 4,
-//     firstName: 'Noodle',
-//     type: 'alpaca',
-//     accessory: 'sparkly wizard hat',
-//     birthDate: new Date('2019-02-14'),
-//   },
-//   {
-//     id: 5,
-//     firstName: 'Waffles',
-//     type: 'hedgehog',
-//     accessory: 'miniature backpack',
-//     birthDate: new Date('2023-09-09'),
-//   },
-// ];
+// const animals = [ { id: 1, firstName: 'Mochi', type: 'red
+//   panda', accessory: 'tiny yellow raincoat', birthDate: new
+//     Date('2021-04-17'), }, { id: 2, firstName: 'Biscuit',
+//     type: 'capybara', accessory: 'striped bow tie', birthDate:
+//     new Date('2020-11-03'), }, { id: 3, firstName: 'Pickle',
+//     type: 'otter', accessory: 'round sunglasses', birthDate:
+//     new Date('2022-07-28'), }, { id: 4, firstName: 'Noodle',
+//   type: 'alpaca', accessory: 'sparkly wizard hat', birthDate:
+//   new Date('2019-02-14'), }, { id: 5, firstName: 'Waffles',
+//     type: 'hedgehog', accessory: 'miniature backpack',
+//     birthDate: new Date('2023-09-09'), }, ];
 
-// export function getAnimals() {
-//   return animals;
-// }
+// export function getAnimals() { return animals; }
 
-// export function getAnimal(id) {
-//   const animal = animals.find((currentAnimal) => {
-//     return currentAnimal.id === id;
-//   });
-//   return animal;
-// }
+// export function getAnimal(id) { const animal =
+//   animals.find((currentAnimal) => { return currentAnimal.id
+//     === id; }); return animal; }
 
 export const getAnimalsInsecure = cache(async () => {
   const animals = await sql<Animal[]>`
@@ -127,7 +97,7 @@ export const getAnimalsWithFoodsInsecure = cache(async () => {
   return animalsWithFoods;
 });
 
-type AnimalWithFoodsJsonAgg = Animal & {
+type AnimalWithFoodsJsonbAgg = Animal & {
   foods: {
     id: number | null;
     name: string | null;
@@ -135,8 +105,8 @@ type AnimalWithFoodsJsonAgg = Animal & {
   }[];
 };
 
-export const getAnimalsWithFoodsJsonAggInsecure = cache(async () => {
-  const animalsWithFoods = await sql<AnimalWithFoodsJsonAgg[]>`
+export const getAnimalsWithFoodsJsonbAggInsecure = cache(async () => {
+  const animalsWithFoods = await sql<AnimalWithFoodsJsonbAgg[]>`
     SELECT
       animals.id,
       animals.first_name,
@@ -182,9 +152,9 @@ export const getAnimalWithFoodsInsecure = cache(async (animalId: number) => {
   return animalWithFoods;
 });
 
-export const getAnimalWithFoodsJsonAggInsecure = cache(
+export const getAnimalWithFoodsJsonbAggInsecure = cache(
   async (animalId: number) => {
-    const [animal] = await sql<AnimalWithFoodsJsonAgg[]>`
+    const [animal] = await sql<AnimalWithFoodsJsonbAgg[]>`
       SELECT
         animals.id,
         animals.first_name,

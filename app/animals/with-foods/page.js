@@ -3,7 +3,7 @@ import { getAnimalsWithFoodsInsecure } from '../../../database/animals';
 import styles from './page.module.scss';
 
 export const metadata = {
-  title: 'Animals',
+  title: 'Animals with Foods',
   description: 'A list of animals for every occasion',
 };
 
