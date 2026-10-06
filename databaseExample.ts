@@ -101,7 +101,7 @@ const sql = postgres({
 //       INNER JOIN animals_foods ON animals.id = animals_foods.animal_id
 //       INNER JOIN foods ON animals_foods.food_id = foods.id
 //   `;
-}
+// }
 
 type AnimalWithFoods = Animal & {
   foodId: number | null;
