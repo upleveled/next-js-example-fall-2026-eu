@@ -12,6 +12,7 @@ This example is part of the curriculum for the [UpLeveled Full Stack Web Develop
 
 - [Next.js](https://nextjs.org/)
 - [Postgres.js](https://www.npmjs.com/package/postgres)
+- [Ley](https://www.npmjs.com/package/@upleveled/ley)
 
 ## Database Setup
 

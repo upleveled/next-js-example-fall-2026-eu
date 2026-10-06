@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import { getAnimalsInsecure } from '../../database/animals';
+import { getAnimalsInsecure } from '../../../database/animals';
 import styles from './page.module.scss';
 
 export const metadata = {
-  title: 'Animals',
-  description: 'A list of animals for every occasion',
+  title: 'Animal Management - Read all animals',
+  description: 'Page to read all animals',
 };
 
-export default async function AnimalsPage() {
+export default async function AnimalManagementAnimalsPage() {
   const animals = await getAnimalsInsecure();
 
   return (

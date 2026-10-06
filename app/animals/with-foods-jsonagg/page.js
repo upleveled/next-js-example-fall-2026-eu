@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAnimalsInsecure } from '../../database/animals';
+import { getAnimalsWithFoodsJsonAggInsecure } from '../../../database/animals';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -7,12 +7,12 @@ export const metadata = {
   description: 'A list of animals for every occasion',
 };
 
-export default async function AnimalsPage() {
-  const animals = await getAnimalsInsecure();
+export default async function AnimalsWithFoodsPage() {
+  const animals = await getAnimalsWithFoodsJsonAggInsecure();
 
   return (
     <div>
-      <h1>Animals</h1>
+      <h1>Animals with Foods</h1>
       <ul className={styles.animalsList}>
         {animals.map((animal) => {
           return (
@@ -24,6 +24,11 @@ export default async function AnimalsPage() {
                 />
                 <span>{animal.firstName}</span>
               </Link>
+              <ul>
+                {animal.foods.map((food) => {
+                  return <li key={food.id}>{food.name}</li>;
+                })}
+              </ul>
             </li>
           );
         })}

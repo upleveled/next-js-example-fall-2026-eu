@@ -1,19 +1,13 @@
 import { notFound } from 'next/navigation';
-import { getAnimalInsecure } from '../../../database/animals';
-import { formatDate, getDaysUntilNextBirthday } from '../../../util/dates';
+import { getAnimalInsecure } from '../../../../database/animals';
+import { formatDate, getDaysUntilNextBirthday } from '../../../../util/dates';
 
-export async function generateMetadata(props) {
-  const { animalId } = await props.params;
+export const metadata = {
+  title: 'Animal Management - Read single animal',
+  description: 'Page to read single animal',
+};
 
-  const animal = await getAnimalInsecure(Number(animalId));
-
-  return {
-    title: animal.firstName,
-    description: `${animal.firstName} the ${animal.type} wearing a ${animal.accessory}`,
-  };
-}
-
-export default async function AnimalPage(props) {
+export default async function AnimalManagementAnimalPage(props) {
   // Next.js will pass `props.params` to each dynamic route segment
   const { animalId } = await props.params;
 
