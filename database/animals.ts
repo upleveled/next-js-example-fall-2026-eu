@@ -84,7 +84,7 @@ type AnimalWithFoodsInnerJoin = Animal & {
 };
 
 export async function getAnimalsWithFoodsInsecureInnerJoin() {
-  return await sql<AnimalWithFoodsInnerJoin[]>`
+  const animalsWithFoods = await sql<AnimalWithFoodsInnerJoin[]>`
     SELECT
       animals.id,
       animals.first_name,
@@ -99,6 +99,7 @@ export async function getAnimalsWithFoodsInsecureInnerJoin() {
       INNER JOIN animals_foods ON animals.id = animals_foods.animal_id
       INNER JOIN foods ON animals_foods.food_id = foods.id
   `;
+  return animalsWithFoods;
 }
 
 type AnimalWithFoods = Animal & {
@@ -108,7 +109,7 @@ type AnimalWithFoods = Animal & {
 };
 
 export const getAnimalsWithFoodsInsecure = cache(async () => {
-  return await sql<AnimalWithFoods[]>`
+  const animalsWithFoods = await sql<AnimalWithFoods[]>`
     SELECT
       animals.id,
       animals.first_name,
@@ -123,6 +124,7 @@ export const getAnimalsWithFoodsInsecure = cache(async () => {
       LEFT JOIN animals_foods ON animals.id = animals_foods.animal_id
       LEFT JOIN foods ON animals_foods.food_id = foods.id
   `;
+  return animalsWithFoods;
 });
 
 type AnimalWithFoodsJsonAgg = Animal & {
@@ -134,7 +136,7 @@ type AnimalWithFoodsJsonAgg = Animal & {
 };
 
 export const getAnimalsWithFoodsJsonAggInsecure = cache(async () => {
-  return await sql<AnimalWithFoodsJsonAgg[]>`
+  const animalsWithFoods = await sql<AnimalWithFoodsJsonAgg[]>`
     SELECT
       animals.id,
       animals.first_name,
@@ -156,6 +158,7 @@ export const getAnimalsWithFoodsJsonAggInsecure = cache(async () => {
     GROUP BY
       animals.id
   `;
+  return animalsWithFoods;
 });
 
 export const getAnimalWithFoodsInsecure = cache(async (animalId: number) => {
