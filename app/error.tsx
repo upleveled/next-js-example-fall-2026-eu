@@ -2,7 +2,12 @@
 
 import { useEffect } from 'react';
 
-export default function ErrorPage(props) {
+type Props = {
+  error: Error & { digest?: string };
+  retry: () => void;
+};
+
+export default function ErrorPage(props: Props) {
   console.log('props', props);
 
   useEffect(() => {
@@ -17,7 +22,7 @@ export default function ErrorPage(props) {
       <button
         onClick={
           // Attempt to recover by trying to re-render the segment
-          () => props.reset()
+          () => props.retry()
         }
       >
         Try again

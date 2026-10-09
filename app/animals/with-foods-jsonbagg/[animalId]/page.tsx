@@ -2,12 +2,18 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getAnimalWithFoodsJsonbAggInsecure } from '../../../../database/animals';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(
+  props: PageProps<'/animals/with-foods-jsonbagg/[animalId]'>,
+) {
   const params = await props.params;
 
   const animal = await getAnimalWithFoodsJsonbAggInsecure(
     Number(params.animalId),
   );
+
+  if (!animal) {
+    notFound();
+  }
 
   return {
     title: animal.firstName,
@@ -15,14 +21,16 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function AnimalWithFoodsJsonbAggPage(props) {
+export default async function AnimalWithFoodsJsonbAggPage(
+  props: PageProps<'/animals/with-foods-jsonbagg/[animalId]'>,
+) {
   const params = await props.params;
 
   const animal = await getAnimalWithFoodsJsonbAggInsecure(
     Number(params.animalId),
   );
 
-  if (animal.length < 1 || !animal) {
+  if (!animal) {
     notFound();
   }
 

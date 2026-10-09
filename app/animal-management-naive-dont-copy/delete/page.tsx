@@ -1,25 +1,27 @@
 import { notFound } from 'next/navigation';
-import { updateAnimalInsecure } from '../../../database/animals';
+import { deleteAnimalInsecure } from '../../../database/animals';
 import { formatDate, getDaysUntilNextBirthday } from '../../../util/dates';
 
 export const metadata = {
-  title: 'Animal Management - Update animal',
-  description: 'Page to update an animal',
+  title: 'Animal Management - Delete animal',
+  description: 'Page to delete an animal',
 };
 
-export default async function AnimalManagementUpdatePage(props) {
+export default async function AnimalManagementDeletePage(
+  props: PageProps<'/animal-management-naive-dont-copy/delete'>,
+) {
   // Next.js will pass `props.searchParams` from the URL
   // eg. ?firstName=ronald becomes
   // { firstName: 'ronald' }
   const searchParams = await props.searchParams;
   console.log(searchParams);
 
-  const newAnimal = await updateAnimalInsecure({
-    id: searchParams.id,
-    firstName: searchParams.firstName,
-    type: searchParams.type,
-    accessory: searchParams.accessory,
-    birthDate: searchParams.birthDate,
+  if (typeof searchParams.id !== 'string') {
+    return <div>Error: searchParams.id must be a string</div>;
+  }
+
+  const newAnimal = await deleteAnimalInsecure({
+    id: Number(searchParams.id),
   });
 
   if (!newAnimal) {
@@ -29,7 +31,7 @@ export default async function AnimalManagementUpdatePage(props) {
   return (
     <div>
       <h1>
-        Updated Animal: {newAnimal.firstName} (id {newAnimal.id})
+        Deleted Animal: {newAnimal.firstName} (id {newAnimal.id})
       </h1>
 
       <div>{newAnimal.firstName}</div>

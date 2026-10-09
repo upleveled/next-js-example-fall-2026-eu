@@ -7,18 +7,37 @@ export const metadata = {
   description: 'Page to create an animal',
 };
 
-export default async function AnimalManagementCreatePage(props) {
+export default async function AnimalManagementCreatePage(
+  props: PageProps<'/animal-management-naive-dont-copy/create'>,
+) {
   // Next.js will pass `props.searchParams` from the URL
   // eg. ?firstName=ronald becomes
   // { firstName: 'ronald' }
   const searchParams = await props.searchParams;
   console.log(searchParams);
 
+  if (
+    typeof searchParams.firstName !== 'string' ||
+    typeof searchParams.type !== 'string' ||
+    typeof searchParams.accessory !== 'string' ||
+    typeof searchParams.birthDate !== 'string'
+  ) {
+    return (
+      <div>
+        Error: firstName, type, accessory and birthDate must all be strings
+      </div>
+    );
+    // // This will trigger app/error.tsx
+    // throw new Error(
+    //   'firstName, type, accessory and birthDate must all be strings',
+    // );
+  }
+
   const newAnimal = await createAnimalInsecure({
     firstName: searchParams.firstName,
     type: searchParams.type,
     accessory: searchParams.accessory,
-    birthDate: searchParams.birthDate,
+    birthDate: new Date(searchParams.birthDate),
   });
 
   if (!newAnimal) {

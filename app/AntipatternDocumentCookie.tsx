@@ -27,7 +27,7 @@ export default function AntipatternDocumentCookie() {
       document.cookie
         .split('; ')
         .find((row) => row.startsWith('lang='))
-        ?.split('=')[1],
+        ?.split('=')[1] || '',
     );
   }, []);
 

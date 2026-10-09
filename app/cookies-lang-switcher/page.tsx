@@ -18,7 +18,7 @@ export default async function CookiesLangSwitcherPage() {
 
   return (
     <div>
-      <h1>{greetings[language]}</h1>
+      <h1>{greetings[language as keyof typeof greetings]}</h1>
       <CookieForm
         // Workaround for bug in React
         // https://github.com/facebook/react/issues/30580

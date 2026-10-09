@@ -4,8 +4,18 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { createCookie } from './actions';
 
-export default function CookieForm(props) {
+type Props = {
+  language: string;
+};
+
+export default function CookieForm(props: Props) {
   const [language, setLanguage] = useState(props.language);
+
+  // // Alternative: standalone change handler function, which requires
+  // // TypeScript `ChangeEvent` type, imported from React
+  // function handleChange(event: ChangeEvent<HTMLSelectElement>) {
+  //   setLanguage(event.currentTarget.value);
+  // }
 
   return (
     // 2. Form to run the Server Action
@@ -13,6 +23,7 @@ export default function CookieForm(props) {
       <select
         value={language}
         onChange={(event) => setLanguage(event.currentTarget.value)}
+        // onChange={handleChange}
       >
         <option value="">Choose your language</option>
         <option value="en">English</option>

@@ -72,7 +72,7 @@ export async function getAnimalsWithFoodsInsecureInnerJoin() {
   return animalsWithFoods;
 }
 
-type AnimalWithFoods = Animal & {
+export type AnimalWithFoods = Animal & {
   foodId: number | null;
   foodName: string | null;
   foodType: string | null;

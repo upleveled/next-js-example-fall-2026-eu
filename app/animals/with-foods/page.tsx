@@ -1,5 +1,9 @@
 import Link from 'next/link';
-import { getAnimalsWithFoodsInsecure } from '../../../database/animals';
+import {
+  type AnimalWithFoods,
+  getAnimalsWithFoodsInsecure,
+} from '../../../database/animals';
+import type { Animal } from '../../../migrations/00000-createTableAnimals';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -11,7 +15,7 @@ export default async function AnimalsWithFoodsPage() {
   const animalsWithFoods = await getAnimalsWithFoodsInsecure();
 
   const animals = animalsWithFoods.reduce(
-    (/** @type {Animal[]} */ acc, animalWithFood) => {
+    (acc, animalWithFood) => {
       const id = animalWithFood.id;
 
       const animal = acc.find((foundAnimal) => foundAnimal.id === id);
@@ -31,7 +35,11 @@ export default async function AnimalsWithFoodsPage() {
         type: animalWithFood.type,
         accessory: animalWithFood.accessory,
         birthDate: animalWithFood.birthDate,
-        foods: [],
+        foods: [] as {
+          id: AnimalWithFoods['foodId'];
+          name: AnimalWithFoods['foodName'];
+          type: AnimalWithFoods['foodType'];
+        }[],
       };
 
       if (animalWithFood.foodId) {
@@ -44,7 +52,13 @@ export default async function AnimalsWithFoodsPage() {
 
       return [...acc, newAnimal];
     },
-    [],
+    [] as (Animal & {
+      foods: {
+        id: AnimalWithFoods['foodId'];
+        name: AnimalWithFoods['foodName'];
+        type: AnimalWithFoods['foodType'];
+      }[];
+    })[],
   );
 
   return (

@@ -9,7 +9,7 @@ export default function GenerateButton() {
   return (
     <button
       onClick={() => {
-        setEmoji(emojis[Math.floor(Math.random() * emojis.length)]);
+        setEmoji(emojis[Math.floor(Math.random() * emojis.length)]!);
       }}
     >
       generate {emoji}

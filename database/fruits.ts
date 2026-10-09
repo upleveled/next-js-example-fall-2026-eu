@@ -1,7 +1,13 @@
 // Simulate a real database, which cannot be imported from Client Components
 import 'server-only';
 
-const fruits = [
+export type Fruit = {
+  id: number;
+  name: string;
+  emoji: string;
+};
+
+const fruits: Fruit[] = [
   { id: 1, name: 'Apple', emoji: '🍎' },
   { id: 2, name: 'Banana', emoji: '🍌' },
   { id: 3, name: 'Orange', emoji: '🍊' },
@@ -16,7 +22,7 @@ export function getFruits() {
   return fruits;
 }
 
-export function getFruit(id) {
+export function getFruit(id: Fruit['id']) {
   const fruit = fruits.find((currentFruit) => {
     return currentFruit.id === id;
   });

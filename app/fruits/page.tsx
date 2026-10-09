@@ -1,6 +1,7 @@
-import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { getFruits } from '../../database/fruits';
+import { getCookie } from '../../util/cookies';
+import { parseJsonFruitComments } from '../../util/json';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -11,9 +12,8 @@ export const metadata = {
 export default async function FruitsPage() {
   const fruits = getFruits();
 
-  const fruitComments = JSON.parse(
-    (await cookies()).get('fruitComments')?.value || '[]',
-  );
+  const fruitComments =
+    parseJsonFruitComments(await getCookie('fruitComments')) || [];
 
   return (
     <div>

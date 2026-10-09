@@ -23,7 +23,7 @@ export const metadata = {
   description: 'Animals for everyone, everywhere, for every occasion',
 };
 
-export default function RootLayout(props) {
+export default function RootLayout(props: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>

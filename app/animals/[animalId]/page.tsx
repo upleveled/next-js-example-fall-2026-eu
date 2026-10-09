@@ -2,10 +2,16 @@ import { notFound } from 'next/navigation';
 import { getAnimalInsecure } from '../../../database/animals';
 import { formatDate, getDaysUntilNextBirthday } from '../../../util/dates';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(
+  props: PageProps<'/animals/[animalId]'>,
+) {
   const { animalId } = await props.params;
 
   const animal = await getAnimalInsecure(Number(animalId));
+
+  if (!animal) {
+    notFound();
+  }
 
   return {
     title: animal.firstName,
@@ -13,7 +19,9 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function AnimalPage(props) {
+export default async function AnimalPage(
+  props: PageProps<'/animals/[animalId]'>,
+) {
   // Next.js will pass `props.params` to each dynamic route segment
   const { animalId } = await props.params;
 

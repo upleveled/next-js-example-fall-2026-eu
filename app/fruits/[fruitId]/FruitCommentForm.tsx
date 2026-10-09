@@ -1,9 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { updateComment } from './actions';
+import { type FruitComment, updateComment } from './actions';
 
-export default function FruitCommentForm(props) {
+type Props = {
+  fruitId: FruitComment['fruitId'];
+  comment: FruitComment['comment'];
+};
+
+export default function FruitCommentForm(props: Props) {
   const [comment, setComment] = useState(props.comment);
 
   return (

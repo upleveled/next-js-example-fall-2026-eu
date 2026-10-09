@@ -1,11 +1,20 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getAnimalWithFoodsInsecure } from '../../../../database/animals';
+import {
+  type AnimalWithFoods,
+  getAnimalWithFoodsInsecure,
+} from '../../../../database/animals';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(
+  props: PageProps<'/animals/with-foods/[animalId]'>,
+) {
   const params = await props.params;
 
   const [animal] = await getAnimalWithFoodsInsecure(Number(params.animalId));
+
+  if (!animal) {
+    notFound();
+  }
 
   return {
     title: animal.firstName,
@@ -13,7 +22,9 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function AnimalWithFoodsPage(props) {
+export default async function AnimalWithFoodsPage(
+  props: PageProps<'/animals/with-foods/[animalId]'>,
+) {
   const params = await props.params;
 
   const animalWithFoods = await getAnimalWithFoodsInsecure(
@@ -22,7 +33,15 @@ export default async function AnimalWithFoodsPage(props) {
 
   console.log(animalWithFoods);
 
-  const animal = animalWithFoods[0];
+  const animal:
+    | (AnimalWithFoods & {
+        foods?: {
+          id: AnimalWithFoods['foodId'];
+          name: AnimalWithFoods['foodName'];
+          type: AnimalWithFoods['foodType'];
+        }[];
+      })
+    | undefined = animalWithFoods[0];
 
   if (animalWithFoods.length < 1 || !animal) {
     notFound();

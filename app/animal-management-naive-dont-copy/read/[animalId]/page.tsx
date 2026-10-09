@@ -7,7 +7,9 @@ export const metadata = {
   description: 'Page to read single animal',
 };
 
-export default async function AnimalManagementAnimalPage(props) {
+export default async function AnimalManagementAnimalPage(
+  props: PageProps<'/animal-management-naive-dont-copy/read/[animalId]'>,
+) {
   // Next.js will pass `props.params` to each dynamic route segment
   const { animalId } = await props.params;
 
