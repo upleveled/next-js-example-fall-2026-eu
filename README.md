@@ -13,6 +13,8 @@ This example is part of the curriculum for the [UpLeveled Full Stack Web Develop
 - [Next.js](https://nextjs.org/)
 - [Postgres.js](https://www.npmjs.com/package/postgres)
 - [Ley](https://www.npmjs.com/package/@upleveled/ley)
+- [Jest](https://jestjs.io/)
+- [Playwright](https://playwright.dev/)
 
 ## Database Setup
 
@@ -82,4 +84,20 @@ psql -U <user name> <database name>
 
 ```bash
 sudo -u <user name> psql -U <user name> <database name>
+```
+
+## Tests
+
+### Jest
+
+```bash
+pnpm jest
+```
+
+### Playwright
+
+```bash
+pnpm playwright test --ui
+# Or, for headless mode:
+pnpm playwright test
 ```
