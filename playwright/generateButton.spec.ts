@@ -10,7 +10,7 @@ test('shows the initial emoji', async ({ page }) => {
 
 test('generates an emoji when clicked', async ({ page }) => {
   await page.addInitScript(() => {
-    Math.random = () => 0.01;
+    Math.random = () => 0.99;
   });
   await page.goto('/');
 
