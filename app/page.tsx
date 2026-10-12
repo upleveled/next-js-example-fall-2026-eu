@@ -29,7 +29,9 @@ export default function HomePage() {
         alt="cat with glasses"
         width={300}
       />
-      <h2>Image using &lt;Image&gt; from next/image</h2>
+      <h2 data-test-id="image-next-image">
+        Image using &lt;Image&gt; from next/image
+      </h2>
       <div>
         Downside: This uses server capacity, which can cause slow page loads
       </div>

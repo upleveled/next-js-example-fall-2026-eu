@@ -1,6 +1,6 @@
 import type { Sql } from 'postgres';
 
-const animals = [
+export const animals = [
   {
     id: 1,
     firstName: 'Mochi',

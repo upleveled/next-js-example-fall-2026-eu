@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@jest/globals": "30.5.2",
+    "@playwright/test": "^1.63.0",
     "@ts-safeql/eslint-plugin": "^5.4.1",
     "@types/dotenv-safe": "9.1.0",
     "@types/node": "^26.6.2",

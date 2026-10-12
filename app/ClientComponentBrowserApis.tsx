@@ -16,7 +16,7 @@ export default function ClientComponentBrowserApis() {
 
   return (
     <div>
-      <h1>Client Component Browser APIs</h1>
+      <h2>Client Component Browser APIs</h2>
       <div>
         <h2>document.title</h2>
         <div>{documentTitle}</div>
