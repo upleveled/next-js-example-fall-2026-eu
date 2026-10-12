@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import {
-  type AnimalWithFoods,
-  getAnimalWithFoodsInsecure,
-} from '../../../../database/animals';
+import { getAnimalWithFoodsInsecure } from '../../../../database/animals';
+import { collapseAnimalWithFoods } from '../../../../util/animalWithFoods';
 
 export async function generateMetadata(
   props: PageProps<'/animals/with-foods/[animalId]'>,
@@ -33,32 +31,11 @@ export default async function AnimalWithFoodsPage(
 
   console.log(animalWithFoods);
 
-  const animal:
-    | (AnimalWithFoods & {
-        foods?: {
-          id: AnimalWithFoods['foodId'];
-          name: AnimalWithFoods['foodName'];
-          type: AnimalWithFoods['foodType'];
-        }[];
-      })
-    | undefined = animalWithFoods[0];
-
-  if (animalWithFoods.length < 1 || !animal) {
+  if (animalWithFoods.length < 1) {
     notFound();
   }
 
-  animal.foods = animalWithFoods
-    .map(({ foodId, foodName, foodType }) => {
-      // Return null if food info not present
-      if (!foodId) return null;
-      return {
-        id: foodId,
-        name: foodName,
-        type: foodType,
-      };
-    })
-    // Remove any array items that don't contain food information
-    .filter((food) => food !== null);
+  const animal = collapseAnimalWithFoods(animalWithFoods);
 
   return (
     <div>
@@ -76,7 +53,7 @@ export default async function AnimalWithFoodsPage(
       <div>
         Foods
         <ul>
-          {animal.foods.map((food) => {
+          {animal.foods?.map((food) => {
             return (
               <li key={`animal-foods-${food.name}-${food.id}`}>
                 {food.name} ({food.type})

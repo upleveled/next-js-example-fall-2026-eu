@@ -1,5 +1,5 @@
-export function formatDate(date: Date) {
-  return date.toLocaleDateString('nl-NL', {
+export function formatDate(date: Date, locales?: Intl.LocalesArgument) {
+  return date.toLocaleDateString(locales || 'nl-NL', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',

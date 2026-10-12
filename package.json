@@ -21,6 +21,7 @@
     "server-only": "0.0.1"
   },
   "devDependencies": {
+    "@jest/globals": "30.5.2",
     "@ts-safeql/eslint-plugin": "^5.4.1",
     "@types/dotenv-safe": "9.1.0",
     "@types/node": "^26.6.2",
@@ -29,6 +30,8 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^10.11.0",
     "eslint-config-upleveled": "^11.0.0",
+    "jest": "30.5.2",
+    "jest-environment-jsdom": "30.5.2",
     "libpg-query": "^18.1.5",
     "prettier": "^3.9.8",
     "prettier-plugin-embed": "^0.5.1",
