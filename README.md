@@ -15,6 +15,7 @@ This example is part of the curriculum for the [UpLeveled Full Stack Web Develop
 - [Ley](https://www.npmjs.com/package/@upleveled/ley)
 - [Jest](https://jestjs.io/)
 - [Playwright](https://playwright.dev/)
+- [Fly.io](https://fly.io/)
 
 ## Database Setup
 
