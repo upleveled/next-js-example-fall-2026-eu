@@ -8,11 +8,6 @@
     display: flex;
     gap: 16px;
   }
-}
-
-.nav {
-  display: flex;
-  gap: 10px;
 
   a {
     text-decoration: none;
@@ -21,4 +16,9 @@
       text-decoration: underline;
     }
   }
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
 }
