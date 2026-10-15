@@ -8,9 +8,9 @@ describe('sum function', () => {
   });
 
   test('throws an error if arguments are not numbers', () => {
-    // @ts-expect-error -- Testing incorrect function usage
+    // @ts-expect-error -- Intentional testing of incorrect function usage
     expect(() => sum(2, '3')).toThrow('Please pass only numbers');
-    // @ts-expect-error -- Testing incorrect function usage
+    // @ts-expect-error -- Intentional testing of incorrect function usage
     expect(() => sum(false, 100)).toThrow('Please pass only numbers');
   });
 });
@@ -22,9 +22,9 @@ describe('multiply function', () => {
   });
 
   test('throws an error if arguments are not numbers', () => {
-    // @ts-expect-error -- Testing incorrect function usage
+    // @ts-expect-error -- Intentional testing of incorrect function usage
     expect(() => multiply(2, '3')).toThrow('Please pass only numbers');
-    // @ts-expect-error -- Testing incorrect function usage
+    // @ts-expect-error -- Intentional testing of incorrect function usage
     expect(() => multiply(false, 100)).toThrow('Please pass only numbers');
   });
 });
