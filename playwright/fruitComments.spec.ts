@@ -55,12 +55,12 @@ test.describe('fruit comments feature', () => {
 
     await expect(
       page.locator(
-        `h1 + ul li a:text-is("${fruitComments.apple.emoji} ${fruitComments.apple.name}")`,
+        `h1 + ul li a:text-is("${fruitComments.apple.emoji} ${fruitComments.apple.name}") + div`,
       ),
     ).toHaveText(fruitComments.apple.comment);
     await expect(
       page.locator(
-        `h1 + ul li a:text-is("${fruitComments.orange.emoji} ${fruitComments.orange.name}")`,
+        `h1 + ul li a:text-is("${fruitComments.orange.emoji} ${fruitComments.orange.name}") + div`,
       ),
     ).toHaveText(fruitComments.orange.comment);
   });
