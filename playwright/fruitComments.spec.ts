@@ -15,7 +15,7 @@ test.describe('fruit comments feature', () => {
         comment: 'Apples are delicious',
       },
       orange: {
-        id: 2,
+        id: 3,
         name: 'Orange',
         emoji: '🍊',
         comment: 'Oranges are ok',
