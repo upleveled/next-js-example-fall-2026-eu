@@ -32,13 +32,17 @@ test.describe('fruit comments feature', () => {
       await expect(page.locator('h1 ~ form textarea')).toHaveValue('');
 
       await page.locator('h1 ~ form textarea').fill(comment);
-      await page.locator('button:text-is("Save")').click();
 
-      // Wait for HTTP response
-      await page.waitForResponse(`/${id}`);
+      // Wait for HTTP response and click the "Save" button
+      // at the same time
+      await Promise.all([
+        page.waitForResponse(`/fruits/${id}`),
+        page.locator('button:text-is("Save")').click(),
+      ]);
 
       // // Alternative: wait for network idle
       // // Warning: worse because it may wait longer than necessary
+      // await page.locator('button:text-is("Save")').click();
       // await page.waitForLoadState('networkidle');
 
       await expect(page.locator('h1 ~ form textarea')).toHaveValue(comment);
