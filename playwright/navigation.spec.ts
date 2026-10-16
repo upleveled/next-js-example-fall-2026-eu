@@ -1,6 +1,6 @@
 import test, { expect } from '@playwright/test';
 
-test.describe('header navigation', () => {
+test.describe('header navigation feature', () => {
   test('allows users to access the home page and other pages', async ({
     page,
   }) => {
