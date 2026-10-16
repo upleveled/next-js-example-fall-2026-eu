@@ -1,5 +1,4 @@
 import test, { expect } from '@playwright/test';
-import { getFruits } from '../database/fruits';
 
 test.describe('fruit comments feature', () => {
   test('saves comments separately for each fruit', async ({ page }) => {
@@ -8,22 +7,24 @@ test.describe('fruit comments feature', () => {
 
     await expect(page.locator('h1 + ul li')).toHaveCount(8);
 
-    const fruits = getFruits();
-
     const fruitComments = {
       apple: {
-        ...fruits.find((fruit) => fruit.name === 'Apple'),
+        id: 1,
+        name: 'Apple',
+        emoji: '🍎',
         comment: 'Apples are delicious',
       },
       orange: {
-        ...fruits.find((fruit) => fruit.name === 'Orange'),
+        id: 2,
+        name: 'Orange',
+        emoji: '🍊',
         comment: 'Oranges are ok',
       },
     };
 
     for (const { id, name, emoji, comment } of Object.values(fruitComments)) {
       await page.locator(`h1 + ul li a:text-is("${emoji} ${name}")`).click();
-      await expect(page).toHaveURL('/fruits/1');
+      await expect(page).toHaveURL(`/fruits/${id}`);
       await expect(
         page.locator(`h1:text-is("${emoji} ${name} (id ${id})")`),
       ).toHaveCount(1);
