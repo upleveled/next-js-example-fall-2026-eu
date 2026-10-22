@@ -14,9 +14,6 @@ export const postgresJsConfig = {
 };
 
 export function setEnvironmentVariables() {
-  // Skip dotenv-safe usage in:
-  // - Production (eg. Fly.io or Vercel)
-  // - CI (eg. GitHub Actions)
   if (process.env.NODE_ENV === 'production' || process.env.CI) {
     // Set standard environment variables for Postgres.js from
     // Vercel environment variables
@@ -27,6 +24,9 @@ export function setEnvironmentVariables() {
       process.env.PGPASSWORD = process.env.POSTGRES_PASSWORD;
     }
 
+    // Skip dotenv-safe usage in:
+    // - Production (eg. Fly.io or Vercel)
+    // - CI (eg. GitHub Actions)
     return;
   }
 
