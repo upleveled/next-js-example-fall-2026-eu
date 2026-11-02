@@ -14,6 +14,8 @@ export default function Header() {
           <Link href="/fruits">Fruits</Link>
         </nav>
         <div>
+          <Link href="/login">Login</Link>
+          <Link href="/register">Register</Link>
           <Link href="/animals/dashboard">Dashboard</Link>
           {/* eslint-disable-next-line react-hooks/purity */}
           <div>{Math.floor(Math.random() * 100)}</div>

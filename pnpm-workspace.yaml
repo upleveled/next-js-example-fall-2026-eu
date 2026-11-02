@@ -3,6 +3,7 @@ allowBuilds:
   sharp: false
   unrs-resolver: true
   esbuild: true
+  bcrypt: true
 minimumReleaseAgeExclude:
   - '@upleveled/*'
   - eslint-config-upleveled
