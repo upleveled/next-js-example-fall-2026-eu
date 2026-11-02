@@ -33,8 +33,8 @@ export async function up(sql: Sql) {
   await sql`
     CREATE TABLE users (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-      -- UNIQUE constraint to make sure every
-      -- username is only used by one user
+      -- UNIQUE constraint to make sure each
+      -- username is used by only one user
       username varchar(80) NOT NULL UNIQUE,
       password_hash varchar(120) NOT NULL
     )
