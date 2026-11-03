@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  createAnimalInsecure,
-  getAnimalsInsecure,
-} from '../../../database/animals';
+import { createAnimal, getAnimals } from '../../../database/animals';
 import {
   type Animal,
   animalSchema,
 } from '../../../migrations/00000-createTableAnimals';
+import { getCookie } from '../../../util/cookies';
 
 // ‼️ WARNING: `GET` Route Handler is often not needed - instead query database via Server Component
 type AnimalsResponseBodyGet = {
@@ -14,7 +12,8 @@ type AnimalsResponseBodyGet = {
 };
 
 export async function GET(): Promise<NextResponse<AnimalsResponseBodyGet>> {
-  const animals = await getAnimalsInsecure();
+  const sessionToken = await getCookie('sessionToken');
+  const animals = !!sessionToken ? await getAnimals(sessionToken) : [];
   return NextResponse.json({
     animals: animals,
   });
@@ -45,7 +44,10 @@ export async function POST(
     );
   }
 
-  const newAnimal = await createAnimalInsecure(result.data.animal);
+  const sessionToken = await getCookie('sessionToken');
+
+  const newAnimal =
+    !!sessionToken && (await createAnimal(sessionToken, result.data.animal));
 
   if (!newAnimal) {
     return NextResponse.json(

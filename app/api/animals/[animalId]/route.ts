@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
-  deleteAnimalInsecure,
-  getAnimalInsecure,
-  updateAnimalInsecure,
+  deleteAnimal,
+  getAnimal,
+  updateAnimal,
 } from '../../../../database/animals';
 import {
   type Animal,
   animalSchema,
 } from '../../../../migrations/00000-createTableAnimals';
+import { getCookie } from '../../../../util/cookies';
 
 // ‼️ WARNING: `GET` Route Handler is often not needed - instead query database via Server Component
 type AnimalResponseBodyGet =
@@ -33,7 +34,9 @@ export async function GET(
     );
   }
 
-  const animal = await getAnimalInsecure(animalId);
+  const sessionToken = await getCookie('sessionToken');
+
+  const animal = !!sessionToken && (await getAnimal(sessionToken, animalId));
 
   if (!animal) {
     return NextResponse.json(
@@ -85,13 +88,17 @@ export async function PUT(
     );
   }
 
-  const updatedAnimal = await updateAnimalInsecure({
-    id: animalId,
-    firstName: result.data.animal.firstName,
-    type: result.data.animal.type,
-    accessory: result.data.animal.accessory,
-    birthDate: result.data.animal.birthDate,
-  });
+  const sessionToken = await getCookie('sessionToken');
+
+  const updatedAnimal =
+    !!sessionToken &&
+    (await updateAnimal(sessionToken, {
+      id: animalId,
+      firstName: result.data.animal.firstName,
+      type: result.data.animal.type,
+      accessory: result.data.animal.accessory,
+      birthDate: result.data.animal.birthDate,
+    }));
 
   if (!updatedAnimal) {
     return NextResponse.json(
@@ -130,7 +137,10 @@ export async function DELETE(
     );
   }
 
-  const animal = await deleteAnimalInsecure({ id: animalId });
+  const sessionToken = await getCookie('sessionToken');
+
+  const animal =
+    !!sessionToken && (await deleteAnimal(sessionToken, { id: animalId }));
 
   if (!animal) {
     return NextResponse.json(

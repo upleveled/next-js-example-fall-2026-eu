@@ -42,10 +42,16 @@ export default function RegisterForm(props: Props) {
 
         setErrorMessage('');
 
+        // Redirect after register to either:
+        // 1. returnTo (page user was trying to access)
+        // 2. Profile page
         router.push(
           getSafeReturnToPath(props.returnTo) ||
             `/profile/${responseBody.user.username}`,
         );
+
+        // Show username in the header immediately
+        router.refresh();
       }}
     >
       <label>

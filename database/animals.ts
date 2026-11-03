@@ -3,25 +3,153 @@
 import 'server-only';
 import { cache } from 'react';
 import type { Animal } from '../migrations/00000-createTableAnimals';
+import type { Session } from '../migrations/00007-createTableSessions';
 import { sql } from './connect';
 
-// const animals = [ { id: 1, firstName: 'Mochi', type: 'red
-//   panda', accessory: 'tiny yellow raincoat', birthDate: new
-//     Date('2021-04-17'), }, { id: 2, firstName: 'Biscuit',
-//     type: 'capybara', accessory: 'striped bow tie', birthDate:
-//     new Date('2020-11-03'), }, { id: 3, firstName: 'Pickle',
-//     type: 'otter', accessory: 'round sunglasses', birthDate:
-//     new Date('2022-07-28'), }, { id: 4, firstName: 'Noodle',
-//   type: 'alpaca', accessory: 'sparkly wizard hat', birthDate:
-//   new Date('2019-02-14'), }, { id: 5, firstName: 'Waffles',
-//     type: 'hedgehog', accessory: 'miniature backpack',
-//     birthDate: new Date('2023-09-09'), }, ];
+// Secure database query functions below, with
+// verification of session token
 
-// export function getAnimals() { return animals; }
+export const getAnimals = cache(async (sessionToken: Session['token']) => {
+  const animals = await sql<Animal[]>`
+    SELECT
+      *
+    FROM
+      animals
+    WHERE
+      EXISTS (
+        SELECT
+          1
+        FROM
+          sessions
+        WHERE
+          -- Session token matches
+          sessions.token = ${sessionToken}
+          -- Session expiry timestamp in future (not yet expired)
+          AND sessions.expiry_timestamp > now()
+      )
+    ORDER BY
+      id
+  `;
+  return animals;
+});
 
-// export function getAnimal(id) { const animal =
-//   animals.find((currentAnimal) => { return currentAnimal.id
-//     === id; }); return animal; }
+export const getAnimal = cache(
+  async (sessionToken: Session['token'], id: number) => {
+    const [animal] = await sql<Animal[]>`
+      SELECT
+        *
+      FROM
+        animals
+      WHERE
+        id = ${id}
+        AND EXISTS (
+          SELECT
+            1
+          FROM
+            sessions
+          WHERE
+            -- Session token matches
+            sessions.token = ${sessionToken}
+            -- Session expiry timestamp in future (not yet expired)
+            AND sessions.expiry_timestamp > now()
+        )
+    `;
+    return animal;
+  },
+);
+
+export const createAnimal = cache(
+  async (sessionToken: Session['token'], newAnimal: Omit<Animal, 'id'>) => {
+    const [animal] = await sql<Animal[]>`
+      INSERT INTO
+        animals (
+          first_name,
+          type,
+          accessory,
+          birth_date
+        )
+      SELECT
+        ${newAnimal.firstName},
+        ${newAnimal.type},
+        ${newAnimal.accessory},
+        ${newAnimal.birthDate}
+      WHERE
+        EXISTS (
+          SELECT
+            1
+          FROM
+            sessions
+          WHERE
+            -- Session token matches
+            sessions.token = ${sessionToken}
+            -- Session expiry timestamp in future (not yet expired)
+            AND sessions.expiry_timestamp > now()
+        )
+      RETURNING
+        *
+    `;
+    return animal;
+  },
+);
+
+export const updateAnimal = cache(
+  async (sessionToken: Session['token'], updatedAnimal: Animal) => {
+    const [animal] = await sql<Animal[]>`
+      UPDATE animals
+      SET
+        first_name = ${updatedAnimal.firstName},
+        type = ${updatedAnimal.type},
+        accessory = ${updatedAnimal.accessory},
+        birth_date = ${updatedAnimal.birthDate}
+      WHERE
+        id = ${updatedAnimal.id}
+        AND EXISTS (
+          SELECT
+            1
+          FROM
+            sessions
+          WHERE
+            -- Session token matches
+            sessions.token = ${sessionToken}
+            -- Session expiry timestamp in future (not yet expired)
+            AND sessions.expiry_timestamp > now()
+        )
+      RETURNING
+        animals.*
+    `;
+    return animal;
+  },
+);
+
+export const deleteAnimal = cache(
+  async (
+    sessionToken: Session['token'],
+    animalToDelete: Pick<Animal, 'id'>,
+  ) => {
+    const [animal] = await sql<Animal[]>`
+      DELETE FROM animals
+      WHERE
+        id = ${animalToDelete.id}
+        AND EXISTS (
+          SELECT
+            1
+          FROM
+            sessions
+          WHERE
+            -- Session token matches
+            sessions.token = ${sessionToken}
+            -- Session expiry timestamp in future (not yet expired)
+            AND sessions.expiry_timestamp > now()
+        )
+      RETURNING
+        animals.*
+    `;
+    return animal;
+  },
+);
+
+// Insecure database query functions below, without
+// verification of session token
 
 export const getAnimalsInsecure = cache(async () => {
   const animals = await sql<Animal[]>`
@@ -234,3 +362,21 @@ export const deleteAnimalInsecure = cache(
     return animal;
   },
 );
+
+// const animals = [ { id: 1, firstName: 'Mochi', type: 'red
+//   panda', accessory: 'tiny yellow raincoat', birthDate: new
+//     Date('2021-04-17'), }, { id: 2, firstName: 'Biscuit',
+//     type: 'capybara', accessory: 'striped bow tie', birthDate:
+//     new Date('2020-11-03'), }, { id: 3, firstName: 'Pickle',
+//     type: 'otter', accessory: 'round sunglasses', birthDate:
+//     new Date('2022-07-28'), }, { id: 4, firstName: 'Noodle',
+//   type: 'alpaca', accessory: 'sparkly wizard hat', birthDate:
+//   new Date('2019-02-14'), }, { id: 5, firstName: 'Waffles',
+//     type: 'hedgehog', accessory: 'miniature backpack',
+//     birthDate: new Date('2023-09-09'), }, ];
+
+// export function getAnimals() { return animals; }
+
+// export function getAnimal(id) { const animal =
+//   animals.find((currentAnimal) => { return currentAnimal.id
+//     === id; }); return animal; }
