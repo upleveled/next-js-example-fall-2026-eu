@@ -34,6 +34,7 @@ export default async function Header() {
             <>
               <Link href={`/profile/${user.username}`}>{user.username}</Link>
               <Link href="/animals/dashboard">Dashboard</Link>
+              <Link href="/notes">Notes</Link>
               <LogoutButton />
             </>
           )}
