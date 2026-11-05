@@ -8,6 +8,8 @@ This example is part of the curriculum for the [UpLeveled Full Stack Web Develop
 
 <img width="1436" height="861" alt="Screenshot 2026-10-14 at 13 19 36" src="https://github.com/user-attachments/assets/c22dbc9e-04c8-4f16-9661-ac7bf673d884" />
 
+[![Screenshot of DrawSQL Database Schema](./screenshot-drawsql-database-schema.avif)](https://drawsql.app/teams/upleveled-28/diagrams/next-js-example-fall-2026-eu)
+
 [DrawSQL Database Schema](https://drawsql.app/teams/upleveled-28/diagrams/next-js-example-fall-2026-eu)
 
 ## Technologies
