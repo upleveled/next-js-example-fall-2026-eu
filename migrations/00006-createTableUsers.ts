@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import type { Sql } from 'postgres';
 import z from 'zod';
 
@@ -18,7 +19,10 @@ export const userSchemaRegister = z.object({
       .trim(),
     password: z
       .string()
-      .min(8, { error: 'Password must be minimum 8 characters' }),
+      .min(8, { error: 'Password must be minimum 8 characters' })
+      .refine((password) => Buffer.byteLength(password, 'utf8') <= 72, {
+        error: 'Password is too long',
+      }),
   }),
 });
 
