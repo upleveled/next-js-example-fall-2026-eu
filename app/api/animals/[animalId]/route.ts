@@ -28,7 +28,7 @@ export async function GET(
   if (isNaN(animalId)) {
     return NextResponse.json(
       {
-        error: 'Bad animal id',
+        error: 'Invalid animal id',
       },
       { status: 400 },
     );
@@ -69,7 +69,7 @@ export async function PUT(
   if (isNaN(animalId)) {
     return NextResponse.json(
       {
-        error: 'Bad animal id',
+        error: 'Invalid animal id',
       },
       { status: 400 },
     );
@@ -131,7 +131,7 @@ export async function DELETE(
   if (isNaN(animalId)) {
     return NextResponse.json(
       {
-        error: 'Bad animal id',
+        error: 'Invalid animal id',
       },
       { status: 400 },
     );
