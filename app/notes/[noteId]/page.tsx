@@ -31,7 +31,7 @@ export async function generateMetadata(props: PageProps<'/notes/[noteId]'>) {
 export default async function NotePage(props: PageProps<'/notes/[noteId]'>) {
   // Note authorization steps in page
 
-  // 1. Get session token from cookie
+  // 1. Get session token from cookie and redirect to login page if falsy
   const sessionToken = await getCookie('sessionToken');
 
   const noteId = Number((await props.params).noteId);
@@ -40,7 +40,7 @@ export default async function NotePage(props: PageProps<'/notes/[noteId]'>) {
     redirect(`/login?returnTo=/notes/${noteId}`);
   }
 
-  // 2. Check if note exists
+  // 2. Check if session token is valid and note exists
   const [validSession, noteExists] = await Promise.all([
     getValidSession(sessionToken),
     getNoteExistsInsecure(noteId),
